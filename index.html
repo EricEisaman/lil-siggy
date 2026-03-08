@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sigma Agent</title>
+    <link rel="icon" type="image/x-icon" href="/images/sigma.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="glass">
+        <div class="logo-container">
+            <div class="logo-icon">σ</div>
+            <div class="title-area">
+                <h1>Sigma <span>Agent</span></h1>
+                <p id="status">Initializing model...</p>
+                <div id="active-model-tag" class="model-tag" style="display: none;">Active: <span
+                        id="active-model-name">None</span></div>
+                <div id="progress-container"
+                    style="display: none; width: 150px; height: 4px; background: rgba(0,0,0,0.1); border-radius: 2px; margin-top: 4px; overflow: hidden;">
+                    <div id="progress-bar"
+                        style="width: 0%; height: 100%; background: var(--primary); transition: width 0.2s ease;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="header-actions">
+            <button id="dashboard-toggle" class="glass-btn">Model Dashboard</button>
+            <button onclick="localStorage.removeItem('ralph_chat_history'); window.location.reload();"
+                class="clear-btn">Clear History</button>
+        </div>
+    </header>
+
+    <!-- Model Dashboard Overlay -->
+    <div id="model-dashboard" class="dashboard glass" style="display: none;">
+        <h3>Local Runtime <span class="v4-pill">v4</span></h3>
+        <form id="token-form" class="token-section">
+            <input type="password" id="hf-token" placeholder="Hugging Face Token (optional)" class="glass-input">
+            <button type="submit" id="save-token" class="glass-btn small">Save</button>
+        </form>
+        <div class="model-list">
+            <div class="model-item" id="model-gen">
+                <div class="model-info">
+                    <span class="model-name">SmolLM-1.7B-Instruct</span>
+                    <span class="model-task">Text Generation</span>
+                </div>
+                <span class="model-status status-loading" id="status-gen">Initializing...</span>
+            </div>
+            <div class="model-item" id="model-sentiment">
+                <div class="model-info">
+                    <span class="model-name">DistilBERT SST-2</span>
+                    <span class="model-task">Sentiment Analysis</span>
+                </div>
+                <span class="model-status status-idle" id="status-sentiment">Idle</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Chat Area -->
+    <main id="app">
+        <div id="chat-output">
+            <!-- Messages appear here -->
+            <div class="message message-system shadow-sm">
+                <strong>System:</strong> Welcome! I am a Ralph-inspired agent running SmolLM-1.7B entirely in your
+                browser with WebGPU acceleration.
+                <br><br>
+                Try asking:
+                <ul class="list-disc">
+                    <li>"What is 23 * 45 + 120?"</li>
+                    <li>"How is the weather in Paris?"</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-wrapper">
+            <div class="input-glow"></div>
+            <div class="input-container glass">
+                <textarea id="user-input" rows="1" placeholder="Type a message..." required></textarea>
+                <button id="send-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <p class="footer-note">Powered by Transformers.js v4 & SmolLM • WebGPU Backend • Privacy First</p>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>
