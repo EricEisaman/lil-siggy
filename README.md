@@ -1,4 +1,4 @@
-# Sigma SmolLM Ralph Agent
+# Sigma Agent
 
 A browser-native agentic web app running **SmolLM-1.7B-Instruct** using **Transformers.js** with a **WASM** backend. It features a **Ralph-inspired loop** for agentic tool calling (Observe -> Think -> Act -> Observe).
 
